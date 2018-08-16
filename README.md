@@ -1,4 +1,6 @@
 # Faktur-PHP-SDK
+![Licencia](https://img.shields.io/github/license/josemmo/Facturae-PHP.svg?style=flat-square)
+
 Faktur-PHP-SDK es un paquete escrito en PHP que brinda la facilidad de generar facturas electrónicas bajo la resolución DGT-R-13-2017 y DGT-R-25-2017.
 
 ## Requsitos
