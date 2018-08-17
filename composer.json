@@ -17,6 +17,10 @@
     "suggest": {
         "ext-openssl": "For signing and timestamping both invoices and SOAP requests"
     },
+    "require-dev": {
+        "codacy/coverage": "dev-master",
+        "phpunit/phpunit": "^5"
+    },
     "autoload": {
         "psr-4": {
             "opencode506\\Faktur\\": "src/"
