@@ -1,10 +1,11 @@
 <?php
 
-
 namespace opencode506\Faktur;
 
+use opencode506\Faktur\Helpers;
 
-class Common {
+
+class Common extends Helpers {
 
     CONST IDP_PRODUCTION = [
         'URL_TOKEN'  => 'https://idp.comprobanteselectronicos.go.cr/auth/realms/rut/protocol/openid-connect/token',
@@ -30,7 +31,7 @@ class Common {
       *                                 cambiar a true para producción
       * @return void
       */
-    public static function token($grantType = 'get_token', $credential, $isProduction = false) 
+    public static function token($grantType = 'password', $credential, $isProduction = false) 
     {
         // TODO: Aún se puede optimizar la captura de los parametros, enviando en el array
         // de credentials el usuario y contrasela para solicitar el token y enviado solo el 
@@ -66,7 +67,9 @@ class Common {
                 CURLOPT_URL => $isProduction ? self::IDP_PRODUCTION['URL_TOKEN'] : self::IDP_SANDBOX['URL_TOKEN'], 
                 CURLOPT_RETURNTRANSFER => true, 
                 CURLOPT_HEADER => true, 
-                CURLOPT_POST => true, 
+                CURLOPT_POST => false,
+                CURLOPT_TIMEOUT => 10,
+                CURLOPT_CONNECTTIMEOUT => 5, 
                 CURLOPT_SSL_VERIFYPEER => false, 
                 CURLOPT_HTTPHEADER => ['Content-Type: application/x-www-form-urlencoded'],
                 CURLOPT_POSTFIELDS => http_build_query($credentials),
@@ -96,25 +99,5 @@ class Common {
         }
     }
 
-    /**
-     * Obtener los headers del response envíado por Hacienda
-     *
-     * @param [string] $response
-     * @return void
-     */
-    private function get_headers_from_curl_response($response)
-    {
-        $headers = [];
-        $header_text = substr($response, 0, strpos($response, "\r\n\r\n"));
-
-        foreach (explode("\r\n", $header_text) as $i => $line)
-            if ($i === 0) {
-                $headers['http_code'] = $line;
-            } else {
-                list ($key, $value) = explode(': ', $line);
-                $headers[$key] = $value;
-            }
-        return $headers;
-    }
 
 }
