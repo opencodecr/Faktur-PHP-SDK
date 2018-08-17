@@ -17,11 +17,6 @@ class Common extends Helpers {
         'CLIENT_ID'  => 'api-stag'
     ];
 
-
-    /**
-     * Método Publico que nos permite obtener el token nuevo
-     */
-
      /**
       * Obtiene y/o Refresca el token 
       *
@@ -31,7 +26,7 @@ class Common extends Helpers {
       *                                 cambiar a true para producción
       * @return void
       */
-    public function token($grantType = 'password', $credential, $isProduction = false) 
+    public function token($credential, $grantType, $isProduction = false) 
     {
         // TODO: Aún se puede optimizar la captura de los parametros, enviando en el array
         // de credentials el usuario y contrasela para solicitar el token y enviado solo el 

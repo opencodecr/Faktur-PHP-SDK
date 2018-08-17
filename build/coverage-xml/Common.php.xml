@@ -11,7 +11,7 @@
     <class name="Common" start="8" executable="36" executed="32" crap="12.20">
       <package full="" name="" sub="" category=""/>
       <namespace name="opencode506\Faktur"/>
-      <method name="token" signature="token($grantType = 'password', $credential, $isProduction = false)" start="34" end="101" crap="12.20" executable="36" executed="32" coverage="88.888888888889"/>
+      <method name="token" signature="token($credential, $grantType = 'password', $isProduction = false)" start="34" end="101" crap="12.20" executable="36" executed="32" coverage="88.888888888889"/>
     </class>
     <coverage>
       <line nr="44">
