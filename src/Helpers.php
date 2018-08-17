@@ -10,7 +10,7 @@ class Helpers {
      * @param [string] $response
      * @return void
      */
-    public static function get_headers_from_curl_response($response)
+    public function get_headers_from_curl_response($response)
     {
         $headers = [];
         $header_text = substr($response, 0, strpos($response, "\r\n\r\n"));

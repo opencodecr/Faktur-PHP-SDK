@@ -10,7 +10,8 @@
 
         public function testGetToken()
         {
-            $token = \opencode506\Faktur\Common::token('password', [
+            $common = new Common();
+            $token = $common->token('password', [
                 'username' => 'cpj-3-101-753619@stag.comprobanteselectronicos.go.cr',
                 'password' => ')^Qa!Qq5/]M;_iVW)p+)'
             ]);
@@ -22,14 +23,15 @@
         
         public function testRefreshToken()
         {
-            $token = \opencode506\Faktur\Common::token('password', [
+            $common = new Common();
+            $token = $common->token('password', [
                 'username' => 'cpj-3-101-753619@stag.comprobanteselectronicos.go.cr',
                 'password' => ')^Qa!Qq5/]M;_iVW)p+)'
             ]);
 
             $this->refreshToken = $token['body']['refresh_token'];
             
-            $refreshToken = \opencode506\Faktur\Common::token('refresh_token', [
+            $refreshToken = $common->token('refresh_token', [
                 'refresh_token' => $this->refreshToken
             ]);
 
