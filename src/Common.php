@@ -77,17 +77,10 @@ class Common extends Helpers {
             $error = json_decode(curl_error($curl));
             curl_close($curl);
             
-            // Envíamos lo que obtenemos del request
-            if ($error) {
-                return [
-                    'status' => $status,
-                    'message' => $error
-                ];
-            } 
-            
             return [
                 'headers' => $this->get_headers_from_curl_response($response),
                 'body' => (array) json_decode(substr($response, $status['header_size'])),
+                'error' => $error
             ];
             
             
