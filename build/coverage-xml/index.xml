@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<phpunit xmlns="http://schema.phpunit.de/coverage/1.0">
+  <project name="/lxcshared/simple/Faktur-PHP-SDK.git/src">
+    <tests>
+      <test name="TokenTest::testGetToken" size="unknown" result="0" status="PASSED"/>
+      <test name="TokenTest::testRefreshToken" size="unknown" result="0" status="PASSED"/>
+    </tests>
+    <directory name="/lxcshared/simple/Faktur-PHP-SDK.git/src">
+      <totals>
+        <lines total="129" comments="40" code="89" executable="47" executed="42" percent="89.36%"/>
+        <methods count="2" tested="1" percent="50.00%"/>
+        <functions count="0" tested="0" percent=""/>
+        <classes count="2" tested="1" percent="50.00%"/>
+        <traits count="0" tested="0" percent=""/>
+      </totals>
+      <file name="Common.php" href="Common.php.xml">
+        <totals>
+          <lines total="102" comments="34" code="68" executable="37" executed="32" percent="86.49%"/>
+          <methods count="1" tested="0" percent="0.00%"/>
+          <functions count="0" tested="0" percent=""/>
+          <classes count="1" tested="0" percent="0.00%"/>
+          <traits count="0" tested="0" percent=""/>
+        </totals>
+      </file>
+      <file name="Helpers.php" href="Helpers.php.xml">
+        <totals>
+          <lines total="27" comments="6" code="21" executable="10" executed="10" percent="100.00%"/>
+          <methods count="1" tested="1" percent="100.00%"/>
+          <functions count="0" tested="0" percent=""/>
+          <classes count="1" tested="1" percent="100.00%"/>
+          <traits count="0" tested="0" percent=""/>
+        </totals>
+      </file>
+    </directory>
+  </project>
+</phpunit>
