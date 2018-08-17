@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1534483610">
-  <project timestamp="1534483610">
+<coverage generated="1534520852">
+  <project timestamp="1534520852">
     <package name="opencode506\Faktur">
       <file name="/lxcshared/simple/Faktur-PHP-SDK.git/src/Common.php">
         <class name="Common" namespace="opencode506\Faktur">
@@ -38,32 +38,29 @@
         <line num="85" type="stmt" count="2"/>
         <line num="87" type="stmt" count="0"/>
         <line num="89" type="stmt" count="0"/>
-        <line num="92" type="stmt" count="2"/>
         <line num="93" type="stmt" count="2"/>
         <line num="94" type="stmt" count="2"/>
-        <line num="97" type="stmt" count="0"/>
+        <line num="95" type="stmt" count="2"/>
         <line num="98" type="stmt" count="0"/>
-        <line num="100" type="stmt" count="0"/>
-        <metrics loc="102" ncloc="68" classes="1" methods="1" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="37" coveredstatements="32" elements="38" coveredelements="32"/>
+        <line num="99" type="stmt" count="0"/>
+        <line num="101" type="stmt" count="0"/>
+        <metrics loc="103" ncloc="69" classes="1" methods="1" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="37" coveredstatements="32" elements="38" coveredelements="32"/>
       </file>
       <file name="/lxcshared/simple/Faktur-PHP-SDK.git/src/Helpers.php">
         <class name="Helpers" namespace="opencode506\Faktur">
-          <metrics complexity="3" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="10" coveredstatements="10" elements="11" coveredelements="11"/>
+          <metrics complexity="3" methods="1" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="7" coveredstatements="4" elements="8" coveredelements="4"/>
         </class>
-        <line num="13" type="method" name="get_headers_from_curl_response" visibility="public" complexity="3" crap="3" count="2"/>
+        <line num="13" type="method" name="get_headers_from_curl_response" visibility="public" complexity="3" crap="3.71" count="2"/>
         <line num="15" type="stmt" count="2"/>
         <line num="16" type="stmt" count="2"/>
         <line num="18" type="stmt" count="2"/>
         <line num="19" type="stmt" count="2"/>
-        <line num="20" type="stmt" count="2"/>
-        <line num="21" type="stmt" count="2"/>
-        <line num="22" type="stmt" count="2"/>
-        <line num="23" type="stmt" count="2"/>
-        <line num="24" type="stmt" count="2"/>
-        <line num="25" type="stmt" count="2"/>
-        <metrics loc="27" ncloc="21" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="10" coveredstatements="10" elements="11" coveredelements="11"/>
+        <line num="21" type="stmt" count="0"/>
+        <line num="22" type="stmt" count="0"/>
+        <line num="24" type="stmt" count="0"/>
+        <metrics loc="26" ncloc="20" classes="1" methods="1" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="7" coveredstatements="4" elements="8" coveredelements="4"/>
       </file>
     </package>
-    <metrics files="2" loc="129" ncloc="89" classes="2" methods="2" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="47" coveredstatements="42" elements="49" coveredelements="43"/>
+    <metrics files="2" loc="129" ncloc="89" classes="2" methods="2" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="44" coveredstatements="36" elements="46" coveredelements="36"/>
   </project>
 </coverage>

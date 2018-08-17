@@ -87,12 +87,13 @@ class Common extends Helpers {
                     'status' => $status,
                     'message' => $error
                 ];
-            } else {
-                return [
-                    'headers' => self::get_headers_from_curl_response($response),
-                    'body' => (array) json_decode(substr($response, $status['header_size'])),
-                ];
-            }
+            } 
+            
+            return [
+                'headers' => self::get_headers_from_curl_response($response),
+                'body' => (array) json_decode(substr($response, $status['header_size'])),
+            ];
+            
             
         } catch (\Exception $e) {
             echo 'Excepción capturada: ',  $e->getMessage(), "\n";
