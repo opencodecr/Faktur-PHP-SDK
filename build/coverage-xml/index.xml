@@ -7,7 +7,7 @@
     </tests>
     <directory name="/lxcshared/simple/Faktur-PHP-SDK.git/src">
       <totals>
-        <lines total="129" comments="40" code="89" executable="43" executed="36" percent="83.72%"/>
+        <lines total="124" comments="37" code="87" executable="43" executed="36" percent="83.72%"/>
         <methods count="2" tested="0" percent="0.00%"/>
         <functions count="0" tested="0" percent=""/>
         <classes count="2" tested="0" percent="0.00%"/>
@@ -15,7 +15,7 @@
       </totals>
       <file name="Common.php" href="Common.php.xml">
         <totals>
-          <lines total="103" comments="34" code="69" executable="36" executed="32" percent="88.89%"/>
+          <lines total="98" comments="31" code="67" executable="36" executed="32" percent="88.89%"/>
           <methods count="1" tested="0" percent="0.00%"/>
           <functions count="0" tested="0" percent=""/>
           <classes count="1" tested="0" percent="0.00%"/>

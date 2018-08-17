@@ -26,7 +26,7 @@ class Common extends Helpers {
       *                                 cambiar a true para producción
       * @return void
       */
-    public function token($credential, $grantType, $isProduction = false) 
+    public function token($credential, $grantType = 'password', $isProduction = false) 
     {
         // TODO: Aún se puede optimizar la captura de los parametros, enviando en el array
         // de credentials el usuario y contrasela para solicitar el token y enviado solo el 

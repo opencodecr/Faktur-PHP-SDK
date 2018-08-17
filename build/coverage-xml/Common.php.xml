@@ -2,7 +2,7 @@
 <phpunit xmlns="http://schema.phpunit.de/coverage/1.0">
   <file name="Common.php">
     <totals>
-      <lines total="103" comments="34" code="69" executable="36" executed="32" percent="88.89%"/>
+      <lines total="98" comments="31" code="67" executable="36" executed="32" percent="88.89%"/>
       <methods count="1" tested="0" percent="0.00%"/>
       <functions count="0" tested="0" percent=""/>
       <classes count="1" tested="0" percent="0.00%"/>
@@ -11,10 +11,18 @@
     <class name="Common" start="8" executable="36" executed="32" crap="12.20">
       <package full="" name="" sub="" category=""/>
       <namespace name="opencode506\Faktur"/>
-      <method name="token" signature="token($credential, $grantType = 'password', $isProduction = false)" start="34" end="101" crap="12.20" executable="36" executed="32" coverage="88.888888888889"/>
+      <method name="token" signature="token($credential, $grantType, $isProduction = false)" start="29" end="96" crap="12.20" executable="36" executed="32" coverage="88.888888888889"/>
     </class>
     <coverage>
-      <line nr="44">
+      <line nr="39">
+        <covered by="TokenTest::testGetToken"/>
+        <covered by="TokenTest::testRefreshToken"/>
+      </line>
+      <line nr="42">
+        <covered by="TokenTest::testGetToken"/>
+        <covered by="TokenTest::testRefreshToken"/>
+      </line>
+      <line nr="46">
         <covered by="TokenTest::testGetToken"/>
         <covered by="TokenTest::testRefreshToken"/>
       </line>
@@ -22,15 +30,19 @@
         <covered by="TokenTest::testGetToken"/>
         <covered by="TokenTest::testRefreshToken"/>
       </line>
+      <line nr="48">
+        <covered by="TokenTest::testGetToken"/>
+        <covered by="TokenTest::testRefreshToken"/>
+      </line>
+      <line nr="49">
+        <covered by="TokenTest::testGetToken"/>
+        <covered by="TokenTest::testRefreshToken"/>
+      </line>
+      <line nr="50">
+        <covered by="TokenTest::testGetToken"/>
+        <covered by="TokenTest::testRefreshToken"/>
+      </line>
       <line nr="51">
-        <covered by="TokenTest::testGetToken"/>
-        <covered by="TokenTest::testRefreshToken"/>
-      </line>
-      <line nr="52">
-        <covered by="TokenTest::testGetToken"/>
-        <covered by="TokenTest::testRefreshToken"/>
-      </line>
-      <line nr="53">
         <covered by="TokenTest::testGetToken"/>
         <covered by="TokenTest::testRefreshToken"/>
       </line>
@@ -39,24 +51,32 @@
         <covered by="TokenTest::testRefreshToken"/>
       </line>
       <line nr="55">
-        <covered by="TokenTest::testGetToken"/>
         <covered by="TokenTest::testRefreshToken"/>
       </line>
       <line nr="56">
-        <covered by="TokenTest::testGetToken"/>
         <covered by="TokenTest::testRefreshToken"/>
       </line>
-      <line nr="59">
-        <covered by="TokenTest::testGetToken"/>
+      <line nr="57">
         <covered by="TokenTest::testRefreshToken"/>
       </line>
       <line nr="60">
+        <covered by="TokenTest::testGetToken"/>
         <covered by="TokenTest::testRefreshToken"/>
       </line>
       <line nr="61">
+        <covered by="TokenTest::testGetToken"/>
         <covered by="TokenTest::testRefreshToken"/>
       </line>
       <line nr="62">
+        <covered by="TokenTest::testGetToken"/>
+        <covered by="TokenTest::testRefreshToken"/>
+      </line>
+      <line nr="63">
+        <covered by="TokenTest::testGetToken"/>
+        <covered by="TokenTest::testRefreshToken"/>
+      </line>
+      <line nr="64">
+        <covered by="TokenTest::testGetToken"/>
         <covered by="TokenTest::testRefreshToken"/>
       </line>
       <line nr="65">
@@ -87,14 +107,6 @@
         <covered by="TokenTest::testGetToken"/>
         <covered by="TokenTest::testRefreshToken"/>
       </line>
-      <line nr="72">
-        <covered by="TokenTest::testGetToken"/>
-        <covered by="TokenTest::testRefreshToken"/>
-      </line>
-      <line nr="73">
-        <covered by="TokenTest::testGetToken"/>
-        <covered by="TokenTest::testRefreshToken"/>
-      </line>
       <line nr="74">
         <covered by="TokenTest::testGetToken"/>
         <covered by="TokenTest::testRefreshToken"/>
@@ -107,7 +119,7 @@
         <covered by="TokenTest::testGetToken"/>
         <covered by="TokenTest::testRefreshToken"/>
       </line>
-      <line nr="79">
+      <line nr="77">
         <covered by="TokenTest::testGetToken"/>
         <covered by="TokenTest::testRefreshToken"/>
       </line>
@@ -115,27 +127,15 @@
         <covered by="TokenTest::testGetToken"/>
         <covered by="TokenTest::testRefreshToken"/>
       </line>
-      <line nr="81">
+      <line nr="88">
         <covered by="TokenTest::testGetToken"/>
         <covered by="TokenTest::testRefreshToken"/>
       </line>
-      <line nr="82">
+      <line nr="89">
         <covered by="TokenTest::testGetToken"/>
         <covered by="TokenTest::testRefreshToken"/>
       </line>
-      <line nr="85">
-        <covered by="TokenTest::testGetToken"/>
-        <covered by="TokenTest::testRefreshToken"/>
-      </line>
-      <line nr="93">
-        <covered by="TokenTest::testGetToken"/>
-        <covered by="TokenTest::testRefreshToken"/>
-      </line>
-      <line nr="94">
-        <covered by="TokenTest::testGetToken"/>
-        <covered by="TokenTest::testRefreshToken"/>
-      </line>
-      <line nr="95">
+      <line nr="90">
         <covered by="TokenTest::testGetToken"/>
         <covered by="TokenTest::testRefreshToken"/>
       </line>
