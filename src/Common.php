@@ -17,6 +17,14 @@ class Common extends Helpers {
         'CLIENT_ID'  => 'api-stag'
     ];
 
+    private $environment;
+
+
+    public function __construct($environment) 
+    {
+        $this->environment = $environment;
+    }
+
      /**
       * Obtiene y/o Refresca el token 
       *
@@ -26,12 +34,8 @@ class Common extends Helpers {
       *                                 cambiar a true para producción
       * @return void
       */
-    public function token($credential, $grantType = 'password', $isProduction = false) 
+    public function token($credential, $grantType = 'password') 
     {
-        // TODO: Aún se puede optimizar la captura de los parametros, enviando en el array
-        // de credentials el usuario y contrasela para solicitar el token y enviado solo el 
-        // token para refrescarlo, para poder identificar que operación se esta solicitando 
-        // el método verifica cuantas variables se obtienen del array $cdredential
         
         try {
 
@@ -43,7 +47,7 @@ class Common extends Helpers {
             
             // Establecemos los valores para obtener el token
             $credentials = [
-                'client_id'     => $isProduction ? self::IDP_PRODUCTION['CLIENT_ID'] : self::IDP_SANDBOX['CLIENT_ID'], 
+                'client_id'     => $this->environment == 'PROD' ? self::IDP_PRODUCTION['CLIENT_ID'] : self::IDP_SANDBOX['CLIENT_ID'], 
                 'client_secret' => '',
                 'grant_type'    => $grantType,
                 'username'      => isset($credential['username']) ? $credential['username'] : '',
@@ -59,7 +63,7 @@ class Common extends Helpers {
             // Enviamos el request
             $curl = curl_init();
             curl_setopt_array($curl, [
-                CURLOPT_URL => $isProduction ? self::IDP_PRODUCTION['URL_TOKEN'] : self::IDP_SANDBOX['URL_TOKEN'], 
+                CURLOPT_URL => $this->environment == 'PROD' ? self::IDP_PRODUCTION['URL_TOKEN'] : self::IDP_SANDBOX['URL_TOKEN'], 
                 CURLOPT_RETURNTRANSFER => true, 
                 CURLOPT_HEADER => true, 
                 CURLOPT_POST => false,

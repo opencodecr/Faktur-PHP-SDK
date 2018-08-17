@@ -10,7 +10,7 @@
 
         public function testGetToken()
         {
-            $common = new Common();
+            $common = new Common('DEV');
             $token = $common->token([
                 'username' => 'cpj-3-101-753619@stag.comprobanteselectronicos.go.cr',
                 'password' => ')^Qa!Qq5/]M;_iVW)p+)'
@@ -23,7 +23,7 @@
         
         public function testRefreshToken()
         {
-            $common = new Common();
+            $common = new Common('DEV');
             $token = $common->token([
                 'username' => 'cpj-3-101-753619@stag.comprobanteselectronicos.go.cr',
                 'password' => ')^Qa!Qq5/]M;_iVW)p+)'
