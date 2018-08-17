@@ -39,9 +39,6 @@ class Common extends Helpers {
         
         try {
 
-            // Verificamos que todos los parametros se hayan seteado
-            if (!$grantType || !$credential) throw new \Exception("Uno o varios parametros no fueron definidos", 500);
-
             // verificamos que el valor en grantType sea válido
             if ($grantType != 'password' && $grantType != 'refresh_token') throw new \Exception("Grant Type incorrecto", 500);
             
