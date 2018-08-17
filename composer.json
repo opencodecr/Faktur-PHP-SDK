@@ -4,6 +4,7 @@
     "keywords": ["factura electronica", "costa rica", "xades-epes"],
     "license": "MIT",
     "homepage": "https://github.com/opencode506/Faktur-PHP-SDK",
+    "type": "lib",
     "authors": [
         {
             "name": "Open Code 506",
