@@ -2,16 +2,16 @@
 <phpunit xmlns="http://schema.phpunit.de/coverage/1.0">
   <file name="Common.php">
     <totals>
-      <lines total="103" comments="34" code="69" executable="37" executed="32" percent="86.49%"/>
+      <lines total="103" comments="34" code="69" executable="36" executed="32" percent="88.89%"/>
       <methods count="1" tested="0" percent="0.00%"/>
       <functions count="0" tested="0" percent=""/>
       <classes count="1" tested="0" percent="0.00%"/>
       <traits count="0" tested="0" percent=""/>
     </totals>
-    <class name="Common" start="8" executable="37" executed="32" crap="12.36">
+    <class name="Common" start="8" executable="36" executed="32" crap="12.20">
       <package full="" name="" sub="" category=""/>
       <namespace name="opencode506\Faktur"/>
-      <method name="token" signature="token($grantType = 'password', $credential, $isProduction = false)" start="34" end="101" crap="12.36" executable="37" executed="32" coverage="86.486486486486"/>
+      <method name="token" signature="token($grantType = 'password', $credential, $isProduction = false)" start="34" end="101" crap="12.20" executable="36" executed="32" coverage="88.888888888889"/>
     </class>
     <coverage>
       <line nr="44">

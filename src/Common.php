@@ -31,7 +31,7 @@ class Common extends Helpers {
       *                                 cambiar a true para producción
       * @return void
       */
-    public static function token($grantType = 'password', $credential, $isProduction = false) 
+    public function token($grantType = 'password', $credential, $isProduction = false) 
     {
         // TODO: Aún se puede optimizar la captura de los parametros, enviando en el array
         // de credentials el usuario y contrasela para solicitar el token y enviado solo el 
@@ -90,13 +90,13 @@ class Common extends Helpers {
             } 
             
             return [
-                'headers' => self::get_headers_from_curl_response($response),
+                'headers' => $this->get_headers_from_curl_response($response),
                 'body' => (array) json_decode(substr($response, $status['header_size'])),
             ];
             
             
         } catch (\Exception $e) {
-            echo 'Excepción capturada: ',  $e->getMessage(), "\n";
+            return $e;
         }
     }
 
