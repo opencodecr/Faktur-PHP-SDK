@@ -14,6 +14,7 @@ Faktur-PHP-SDK es un paquete escrito en PHP que brinda la facilidad de generar *
 ## Caracteristicas
 - Creación de factura electrónica conforme a la [Resolución DGT-R-13-2017 y DGT-R-25-2017](https://tribunet.hacienda.go.cr/docs/esquemas/2016/v4.2/ResolucionComprobantesElectronicosDGT-R-48-2016_4.2.pdf)
 - Firmado XAdES-epes
+- Exporta a versión de formato [4.2](https://tribunet.hacienda.go.cr/FormatosYEstructurasXML.jsp#)
 - Enviado automatizado
 
 ## Licencia
