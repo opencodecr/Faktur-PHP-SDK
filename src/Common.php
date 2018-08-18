@@ -89,8 +89,4 @@ class Common extends Helpers {
         }
     }
 
-    public function findById($documentId) 
-    {
-
-    }    
 }
