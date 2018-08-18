@@ -17,23 +17,24 @@ class Common extends Helpers {
         'CLIENT_ID'  => 'api-stag'
     ];
 
-    private $environment;
+    var $environment;
 
-
-    public function __construct($environment) 
-    {
-        $this->environment = $environment;
-    }
-
-     /**
-      * Obtiene y/o Refresca el token 
-      *
-      * @param string $grantType        Password para solicitar tokem, refresh_token para refrescar el token
-      * @param array $credential        Admite un array para solicitar el token [usuario, password], para refrescar [grant_type => 'refresh_token']
-      * @param boolean $isProduction    Por defecto es false, así que los request se envían a el ambiente Sandbox, 
-      *                                 cambiar a true para producción
-      * @return void
-      */
+    /**
+     * Token
+     * 
+     * Este método permite obtener un token a partir del usuario y contraseña 
+     * generados desde ATV de Hacienda hasta refrescar el token ya una vez 
+     * obtenido
+     * 
+     * 
+     *
+     * @param array $credential     Array indicando el ambiente(Producción o 
+     *                              Sandbox), usuario y contraseña
+     * @param string $grantType     String que indica el tipo de acción, 
+     *                              'password' para obtener token, refresh_token
+     *                              para refrescar el token
+     * @return array                Retorna un array con los headers, body
+     */
     public function token($credential, $grantType = 'password') 
     {
         
@@ -43,6 +44,8 @@ class Common extends Helpers {
             if ($grantType != 'password' && $grantType != 'refresh_token') throw new \Exception("Grant Type incorrecto", 500);
             
             // Establecemos los valores para obtener el token
+            $this->environment = isset($credential['environment']) ? $credential['environment'] : 'DEV';
+
             $credentials = [
                 'client_id'     => $this->environment == 'PROD' ? self::IDP_PRODUCTION['CLIENT_ID'] : self::IDP_SANDBOX['CLIENT_ID'], 
                 'client_secret' => '',
@@ -74,20 +77,16 @@ class Common extends Helpers {
             // Ejecutamos el request y obtenemos algunos valores y estados
             $response = curl_exec($curl);
             $status = curl_getinfo($curl);
-            $error = json_decode(curl_error($curl));
             curl_close($curl);
             
             return [
                 'headers' => $this->get_headers_from_curl_response($response),
-                'body' => (array) json_decode(substr($response, $status['header_size'])),
-                'error' => $error
+                'body' => (array) json_decode(substr($response, $status['header_size']))
             ];
-            
             
         } catch (\Exception $e) {
             return $e;
         }
     }
-
 
 }
