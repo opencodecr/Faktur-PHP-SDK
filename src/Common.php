@@ -17,13 +17,7 @@ class Common extends Helpers {
         'CLIENT_ID'  => 'api-stag'
     ];
 
-    static private $environment;
-
-
-    public function __construct($environment) 
-    {
-        $this->environment = $environment;
-    }
+    var $environment;
 
     /**
      * Token
@@ -32,14 +26,16 @@ class Common extends Helpers {
      * generados desde ATV de Hacienda hasta refrescar el token ya una vez 
      * obtenido
      * 
-     * Para obtener el token se utiliza la siguiente sintaxis
      * 
      *
-     * @param [type] $credential
-     * @param string $grantType
-     * @return void
+     * @param array $credential     Array indicando el ambiente(Producción o 
+     *                              Sandbox), usuario y contraseña
+     * @param string $grantType     String que indica el tipo de acción, 
+     *                              'password' para obtener token, refresh_token
+     *                              para refrescar el token
+     * @return array                Retorna un array con los headers, body
      */
-    public static function token($credential, $grantType = 'password') 
+    public function token($credential, $grantType = 'password') 
     {
         
         try {
@@ -48,8 +44,10 @@ class Common extends Helpers {
             if ($grantType != 'password' && $grantType != 'refresh_token') throw new \Exception("Grant Type incorrecto", 500);
             
             // Establecemos los valores para obtener el token
+            $this->environment = isset($credential['environment']) ? $credential['environment'] : 'DEV';
+
             $credentials = [
-                'client_id'     => self::$environment == 'PROD' ? self::IDP_PRODUCTION['CLIENT_ID'] : self::IDP_SANDBOX['CLIENT_ID'], 
+                'client_id'     => $this->environment == 'PROD' ? self::IDP_PRODUCTION['CLIENT_ID'] : self::IDP_SANDBOX['CLIENT_ID'], 
                 'client_secret' => '',
                 'grant_type'    => $grantType,
                 'username'      => isset($credential['username']) ? $credential['username'] : '',
@@ -65,7 +63,7 @@ class Common extends Helpers {
             // Enviamos el request
             $curl = curl_init();
             curl_setopt_array($curl, [
-                CURLOPT_URL => self::$environment == 'PROD' ? self::IDP_PRODUCTION['URL_TOKEN'] : self::IDP_SANDBOX['URL_TOKEN'], 
+                CURLOPT_URL => $this->environment == 'PROD' ? self::IDP_PRODUCTION['URL_TOKEN'] : self::IDP_SANDBOX['URL_TOKEN'], 
                 CURLOPT_RETURNTRANSFER => true, 
                 CURLOPT_HEADER => true, 
                 CURLOPT_POST => false,
@@ -79,15 +77,12 @@ class Common extends Helpers {
             // Ejecutamos el request y obtenemos algunos valores y estados
             $response = curl_exec($curl);
             $status = curl_getinfo($curl);
-            $error = json_decode(curl_error($curl));
             curl_close($curl);
             
             return [
-                'headers' => self::get_headers_from_curl_response($response),
-                'body' => (array) json_decode(substr($response, $status['header_size'])),
-                'error' => $error
+                'headers' => $this->get_headers_from_curl_response($response),
+                'body' => (array) json_decode(substr($response, $status['header_size']))
             ];
-            
             
         } catch (\Exception $e) {
             return $e;
