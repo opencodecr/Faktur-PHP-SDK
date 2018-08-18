@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1534527182">
-  <project timestamp="1534527182">
+<coverage generated="1534551226">
+  <project timestamp="1534551226">
     <package name="opencode506\Faktur">
       <file name="/lxcshared/simple/Faktur-PHP-SDK.git/src/Common.php">
         <class name="Common" namespace="opencode506\Faktur">

@@ -17,7 +17,7 @@ class Common extends Helpers {
         'CLIENT_ID'  => 'api-stag'
     ];
 
-    private $environment;
+    static private $environment;
 
 
     public function __construct($environment) 
@@ -25,16 +25,21 @@ class Common extends Helpers {
         $this->environment = $environment;
     }
 
-     /**
-      * Obtiene y/o Refresca el token 
-      *
-      * @param string $grantType        Password para solicitar tokem, refresh_token para refrescar el token
-      * @param array $credential        Admite un array para solicitar el token [usuario, password], para refrescar [grant_type => 'refresh_token']
-      * @param boolean $isProduction    Por defecto es false, así que los request se envían a el ambiente Sandbox, 
-      *                                 cambiar a true para producción
-      * @return void
-      */
-    public function token($credential, $grantType = 'password') 
+    /**
+     * Token
+     * 
+     * Este método permite obtener un token a partir del usuario y contraseña 
+     * generados desde ATV de Hacienda hasta refrescar el token ya una vez 
+     * obtenido
+     * 
+     * Para obtener el token se utiliza la siguiente sintaxis
+     * 
+     *
+     * @param [type] $credential
+     * @param string $grantType
+     * @return void
+     */
+    public static function token($credential, $grantType = 'password') 
     {
         
         try {
@@ -44,7 +49,7 @@ class Common extends Helpers {
             
             // Establecemos los valores para obtener el token
             $credentials = [
-                'client_id'     => $this->environment == 'PROD' ? self::IDP_PRODUCTION['CLIENT_ID'] : self::IDP_SANDBOX['CLIENT_ID'], 
+                'client_id'     => self::$environment == 'PROD' ? self::IDP_PRODUCTION['CLIENT_ID'] : self::IDP_SANDBOX['CLIENT_ID'], 
                 'client_secret' => '',
                 'grant_type'    => $grantType,
                 'username'      => isset($credential['username']) ? $credential['username'] : '',
@@ -60,7 +65,7 @@ class Common extends Helpers {
             // Enviamos el request
             $curl = curl_init();
             curl_setopt_array($curl, [
-                CURLOPT_URL => $this->environment == 'PROD' ? self::IDP_PRODUCTION['URL_TOKEN'] : self::IDP_SANDBOX['URL_TOKEN'], 
+                CURLOPT_URL => self::$environment == 'PROD' ? self::IDP_PRODUCTION['URL_TOKEN'] : self::IDP_SANDBOX['URL_TOKEN'], 
                 CURLOPT_RETURNTRANSFER => true, 
                 CURLOPT_HEADER => true, 
                 CURLOPT_POST => false,
@@ -78,7 +83,7 @@ class Common extends Helpers {
             curl_close($curl);
             
             return [
-                'headers' => $this->get_headers_from_curl_response($response),
+                'headers' => self::get_headers_from_curl_response($response),
                 'body' => (array) json_decode(substr($response, $status['header_size'])),
                 'error' => $error
             ];
@@ -89,5 +94,8 @@ class Common extends Helpers {
         }
     }
 
+    public function findById($documentId) 
+    {
 
+    }    
 }
