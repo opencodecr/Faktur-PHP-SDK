@@ -157,6 +157,7 @@ class Common extends Helpers {
             $xml = "<package>" . $xml . "</package>";
             $data = simplexml_load_string($xml);
 
+            // TODO: Revisar si la consulta envía varios contribuyentes
             if ($origin == 'Fisico') {
                 $return = [
                     'cedula' => isset($data->diffgram->DocumentElement->Table->CEDULA[0]) ? $data->diffgram->DocumentElement->Table->CEDULA[0] : '',
