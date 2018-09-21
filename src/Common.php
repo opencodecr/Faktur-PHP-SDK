@@ -121,7 +121,7 @@ class Common extends Helpers {
      * @param string $origin        Tipo de identificación, puede ser Fisico, Juridico o DIMEX
      * @return void
      */    
-    public function findByDocumentoId($documentId, $origin = 'Juridico')
+    public function findByDocumentId($documentId, $origin)
     {
         try {  
 
