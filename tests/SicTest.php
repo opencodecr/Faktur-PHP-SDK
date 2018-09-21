@@ -1,0 +1,25 @@
+<?php
+
+    use opencode506\Faktur\Common;
+    use PHPUnit\Framework\TestCase;
+
+    final class SicTest extends TestCase 
+    {
+
+        public function testfindByDocumentoIdJuridico()
+        {
+            $common = new Common('DEV');
+            $taxPayer = $common->findByDocumentoId('310175361932');
+            $success = $taxPayer['nombre'];
+            $this->assertNotEmpty($success);
+        }
+        
+        public function testfindByDocumentoIdFisico()
+        {
+            $common = new Common('DEV');
+            $taxPayer = $common->findByDocumentoId('040167066109', 'Fisico');
+            $success = $taxPayer['apellido1'];
+            $this->assertNotEmpty($success);
+        }
+
+    }
