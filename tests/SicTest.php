@@ -9,7 +9,7 @@
         public function testfindByDocumentoIdJuridico()
         {
             $common = new Common('DEV');
-            $taxPayer = $common->findByDocumentId('310175361932', 'Juridico');
+            $taxPayer = $common->findByDocumentId('310175361932');
             $success = $taxPayer['nombre'];
             $this->assertNotEmpty($success);
         }
