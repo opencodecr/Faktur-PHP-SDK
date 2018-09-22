@@ -8,10 +8,6 @@ use RebaseData\Client;
 /**
  * Clase Common
  * 
- * Para la actualización de la base de datos del SIC se neceista tener instalados
- * los siguientes paquetes:
- * mdbtools, mdbtools-gmdb php5.6-odbc
- * sudo apt install 
  */
 class Common extends Helpers {
 
@@ -157,7 +153,6 @@ class Common extends Helpers {
             $xml = "<package>" . $xml . "</package>";
             $data = simplexml_load_string($xml);
 
-            // TODO: Revisar si la consulta envía varios contribuyentes
             if ($origin == 'Fisico') {
                 $return = [
                     'cedula' => isset($data->diffgram->DocumentElement->Table->CEDULA[0]) ? $data->diffgram->DocumentElement->Table->CEDULA[0] : '',
