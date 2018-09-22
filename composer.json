@@ -13,8 +13,7 @@
         }
     ],
     "require": {
-        "php": ">=5.6",
-        "rebasedata/php-client": "^0.0.2"
+        "php": ">=5.6"
     },
     "suggest": {
         "ext-openssl": "For signing and timestamping both invoices and SOAP requests"
