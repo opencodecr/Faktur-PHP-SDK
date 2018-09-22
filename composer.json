@@ -1,10 +1,11 @@
 {
     "name": "opencode506/faktur-php-sdk",
     "description": "PHP SDK para desarrollo e implementación de Factura Electrónica para Costa Rica",
-    "keywords": ["factura electronica", "costa rica", "xades-epes"],
+    "keywords": ["factura electronica", "costa rica", "xades-epes", "hacienda"],
     "license": "MIT",
     "homepage": "https://github.com/opencode506/Faktur-PHP-SDK",
-    "type": "lib",
+    "version": "1.0.0-alpha",
+    "type": "library",
     "authors": [
         {
             "name": "Open Code 506",
@@ -13,8 +14,7 @@
         }
     ],
     "require": {
-        "php": ">=5.6",
-        "rebasedata/php-client": "^0.0.2"
+        "php": ">=5.6"
     },
     "suggest": {
         "ext-openssl": "For signing and timestamping both invoices and SOAP requests"
