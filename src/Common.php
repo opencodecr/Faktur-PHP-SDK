@@ -8,10 +8,6 @@ use RebaseData\Client;
 /**
  * Clase Common
  * 
- * Para la actualización de la base de datos del SIC se neceista tener instalados
- * los siguientes paquetes:
- * mdbtools, mdbtools-gmdb php5.6-odbc
- * sudo apt install 
  */
 class Common extends Helpers {
 
