@@ -264,7 +264,7 @@ class Common extends Helpers {
                     'origen' => $origin, // Fisico,  Juridico o DIMEX
                     'razon'  => $query['RAZON']
                 ];
-            } else {
+            } elseif ($origin == 'Fisico') {
                 $params = [
                     'origen' => $origin, // Fisico,  Juridico o DIMEX
                     'ape1'   => isset($query['APELLIDO1']) ? $query['APELLIDO1'] : '',
