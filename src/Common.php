@@ -18,7 +18,7 @@ class Common extends Helpers {
      * Indica el ambiente de producción en hacienda para
      * obtener el token de autorización
      */
-    CONST IDP_PRODUCTION = [
+    const IDP_PRODUCTION = [
         'URL_TOKEN'  => 'https://idp.comprobanteselectronicos.go.cr/auth/realms/rut/protocol/openid-connect/token',
         'CLIENT_ID'  => 'api-prod'
     ];
@@ -26,7 +26,7 @@ class Common extends Helpers {
      * Indica el ambiente de prueba en hacienda para
      * obtener el token de autorización
      */
-    CONST IDP_SANDBOX = [
+    const IDP_SANDBOX = [
         'URL_TOKEN'  => 'https://idp.comprobanteselectronicos.go.cr/auth/realms/rut-stag/protocol/openid-connect/token',
         'CLIENT_ID'  => 'api-stag'
     ];
@@ -34,12 +34,12 @@ class Common extends Helpers {
      * Indica la dirección IP en donde se realiza las consultas
      * SIC
      */
-    CONST SIC_IP = '196.40.56.20';
+    const SIC_IP = '196.40.56.20';
     /**
      * Indica el web service que se consume para las 
      * consultas SIC
      */
-    CONST SIC_WEB_SERVICE = 'wsInformativasSICWEB/Service1.asmx?WSDL';
+    const SIC_WEB_SERVICE = 'wsInformativasSICWEB/Service1.asmx?WSDL';
 
     /**
      * @var Indica en que ambiente se está ejecutando las acciones
@@ -174,9 +174,9 @@ class Common extends Helpers {
         
             $soap = new \SoapClient($wsdl, $options);
             $response = $soap->ObtenerDatos($params);
-            $soap_response = $response->ObtenerDatosResult->any;
+            $soapResponse = $response->ObtenerDatosResult->any;
 
-            $xml = str_replace(["diffgr:", "msdata:"], '', $soap_response);
+            $xml = str_replace(["diffgr:", "msdata:"], '', $soapResponse);
             $xml = "<package>" . $xml . "</package>";
             $data = simplexml_load_string($xml);
 
@@ -278,9 +278,9 @@ class Common extends Helpers {
         
             $soap = new \SoapClient($wsdl, $options);
             $response = $soap->ObtenerDatos($params);
-            $soap_response = $response->ObtenerDatosResult->any;
+            $soapResponse = $response->ObtenerDatosResult->any;
 
-            $xml = str_replace(["diffgr:", "msdata:"], '', $soap_response);
+            $xml = str_replace(["diffgr:", "msdata:"], '', $soapResponse);
             $xml = "<package>" . $xml . "</package>";
             $data = simplexml_load_string($xml);
             $results = $data->diffgram->DocumentElement->Table;
