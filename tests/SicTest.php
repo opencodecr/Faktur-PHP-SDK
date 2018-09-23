@@ -22,4 +22,20 @@
             $this->assertNotEmpty($success);
         }
 
+        public function testfindByNameFisico()
+        {
+            $common = new Common('DEV');
+            $taxPayer = $common->findByName(['NOMBRE2' => 'Alejandro', 'APELLIDO1' => 'Benavides'], 'Fisico');
+            $success = $taxPayer[0]['cedula'];
+            $this->assertNotEmpty($success);
+        }
+
+        public function testfindByNameJuridico()
+        {
+            $common = new Common('DEV');
+            $taxPayer = $common->findByName(['RAZON' => 'Meddyg'], 'Juridico');
+            $success = $taxPayer[0]['cedula'];
+            $this->assertNotEmpty($success);
+        }
+
     }
