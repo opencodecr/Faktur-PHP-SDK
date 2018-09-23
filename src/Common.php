@@ -293,7 +293,7 @@ class Common extends Helpers {
                         'adm' =>  $result->ADM[0],
                         'ori' => $result->ORI[0]
                     ];
-                } else {
+                } elseif ($origin == 'Fisico') {
                     $return[] = [
                         'cedula' => $result->CEDULA[0],
                         'nombre1' => $result->NOMBRE1[0],
