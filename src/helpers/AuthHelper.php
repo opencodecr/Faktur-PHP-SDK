@@ -1,8 +1,8 @@
 <?php
 
-namespace opencode506\Faktur;
+namespace opencode506\Faktur\Helpers;
 
-class Helpers {
+class AuthHelper {
 
     /**
      * Obtener los headers de los responses envíados por Hacienda
@@ -10,12 +10,12 @@ class Helpers {
      * @param [string] $response
      * @return void
      */
-    public function get_headers_from_curl_response($response)
+    public static function getHeadersFromCurlResponse($response)
     {
         $headers = [];
-        $header_text = substr($response, 0, strpos($response, "\r\n\r\n"));
+        $headerText = substr($response, 0, strpos($response, "\r\n\r\n"));
 
-        foreach (explode("\r\n", $header_text) as $i => $line)
+        foreach (explode("\r\n", $headerText) as $i => $line)
             if ($i === 0) 
                 return $headers['http_code'] = $line;
             
