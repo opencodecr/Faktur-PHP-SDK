@@ -2,44 +2,16 @@
 
 namespace opencode506\Faktur;
 
-use opencode506\Faktur\Helpers;
-use RebaseData\Client;
+use opencode506\Faktur\Interfaces\AuthInterface;
 
 /**
- * Common representa los eventos comunes que se necesitan para
+ * Auth representa los eventos comunes que se necesitan para
  * generar los comprobantes electrónicos
  * 
  * @author Open Code 506 community <opencode506@gmail.com>
  * @since 1.0.0
  */
-class Common extends Helpers {
-
-    /**
-     * Indica el ambiente de producción en hacienda para
-     * obtener el token de autorización
-     */
-    const IDP_PRODUCTION = [
-        'URL_TOKEN'  => 'https://idp.comprobanteselectronicos.go.cr/auth/realms/rut/protocol/openid-connect/token',
-        'CLIENT_ID'  => 'api-prod'
-    ];
-    /**
-     * Indica el ambiente de prueba en hacienda para
-     * obtener el token de autorización
-     */
-    const IDP_SANDBOX = [
-        'URL_TOKEN'  => 'https://idp.comprobanteselectronicos.go.cr/auth/realms/rut-stag/protocol/openid-connect/token',
-        'CLIENT_ID'  => 'api-stag'
-    ];
-    /**
-     * Indica la dirección IP en donde se realiza las consultas
-     * SIC
-     */
-    const SIC_IP = '196.40.56.20';
-    /**
-     * Indica el web service que se consume para las 
-     * consultas SIC
-     */
-    const SIC_WEB_SERVICE = 'wsInformativasSICWEB/Service1.asmx?WSDL';
+class Auth implements AuthInterface {
 
     /**
      * @var Indica en que ambiente se está ejecutando las acciones
@@ -50,19 +22,6 @@ class Common extends Helpers {
      * contrinuyentes
      */
     private $sicHostWS;
-
-    /**
-     * Constructor
-     */
-    public function __construct() 
-    {
-        // Establecemos algunos valores necesarios para la consulta SIC Web
-        ini_set('soap.wsdl_cache_enabled', '0');
-        ini_set('soap.wsdl_cache_ttl', 900);
-        ini_set('default_socket_timeout', 30);
-
-        $this->sicHostWS = 'http://' . self::SIC_IP . '/' . self::SIC_WEB_SERVICE;
-    }
 
     /**
      * Token
@@ -125,7 +84,7 @@ class Common extends Helpers {
             curl_close($curl);
             
             return [
-                'headers' => $this->get_headers_from_curl_response($response),
+                'headers' => \opencode506\Faktur\Helpers\AuthHelper::getHeadersFromCurlResponse($response),
                 'body' => (array) json_decode(substr($response, $status['header_size']))
             ];
             
