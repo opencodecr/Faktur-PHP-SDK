@@ -6,27 +6,54 @@ use opencode506\Faktur\Helpers;
 use RebaseData\Client;
 
 /**
- * Clase Common
+ * Common representa los eventos comunes que se necesitan para
+ * generar los comprobantes electrónicos
  * 
+ * @author Open Code 506 community <opencode506@gmail.com>
+ * @since 1.0.0
  */
 class Common extends Helpers {
 
+    /**
+     * Indica el ambiente de producción en hacienda para
+     * obtener el token de autorización
+     */
     CONST IDP_PRODUCTION = [
         'URL_TOKEN'  => 'https://idp.comprobanteselectronicos.go.cr/auth/realms/rut/protocol/openid-connect/token',
         'CLIENT_ID'  => 'api-prod'
     ];
-
+    /**
+     * Indica el ambiente de prueba en hacienda para
+     * obtener el token de autorización
+     */
     CONST IDP_SANDBOX = [
         'URL_TOKEN'  => 'https://idp.comprobanteselectronicos.go.cr/auth/realms/rut-stag/protocol/openid-connect/token',
         'CLIENT_ID'  => 'api-stag'
     ];
-
-    CONST SIC_IP = '196.40.56.201';
+    /**
+     * Indica la dirección IP en donde se realiza las consultas
+     * SIC
+     */
+    CONST SIC_IP = '196.40.56.20';
+    /**
+     * Indica el web service que se consume para las 
+     * consultas SIC
+     */
     CONST SIC_WEB_SERVICE = 'wsInformativasSICWEB/Service1.asmx?WSDL';
 
-    var $environment;
-    var $sicHostWS;
+    /**
+     * @var Indica en que ambiente se está ejecutando las acciones
+     */
+    private $environment;
+    /**
+     * @var URL en donde se realizan las consultas de los datos de los
+     * contrinuyentes
+     */
+    private $sicHostWS;
 
+    /**
+     * Constructor
+     */
     public function __construct() 
     {
         // Establecemos algunos valores necesarios para la consulta SIC Web
@@ -108,7 +135,7 @@ class Common extends Helpers {
     }
 
     /**
-     * findByDocumentoId
+     * findByDocumentId
      * 
      * Permite obtener la información de una contribuyente por medio
      * de su número de identificación
@@ -143,7 +170,7 @@ class Common extends Helpers {
                 'cedula'      => $documentId
             ];
         
-            $wsdl = "http://196.40.56.20/wsInformativasSICWEB/Service1.asmx?WSDL";
+            $wsdl = $this->sicHostWS;
         
             $soap = new \SoapClient($wsdl, $options);
             $response = $soap->ObtenerDatos($params);
@@ -172,6 +199,114 @@ class Common extends Helpers {
                 ];
             } 
              
+            return $return;
+
+        } catch (\SoapFault $fault) {
+            return [
+                'code' => 500,
+                'message' => $fault->getMessage()
+            ];
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
+    /**
+     * findByName
+     *
+     * Permite obtener la información de una contribuyente por medio
+     * de su nombre, apellido o razón social
+     * 
+     * @param array $params Indica los campos con los que se hará la 
+     *                     consulta.  Para personas FISICA el array  debe ser construido
+     *                     de la siguiente forma:
+     *                     ```php
+     *                           $consulta = [
+     *                              'NOMBRE1' => 'Juan',
+     *                              'NOMBRE2' => 'Arnoldo',
+     *                              'APELLIDO1' => 'Perez',
+     *                              'APELLIDO2' => 'Gallardo'
+     *                           ]; 
+     *                     ```
+     *                     Para consultar personas JURIDICAS la consulta debe ser
+     *                     construida de la siguiente forma:
+     *                     ```php
+     *                           $consulta = [
+     *                              'RAZON' => 'Coporación ABC'
+     *                           ]; 
+     *                     ```
+     *                 
+     * @param string $origin  Indica si la consulta se hará a personas juridicas 
+     *                        o personas físicas
+     * @return array  Se retorna un array con todas las coincidencias enviadas por
+     *                el web service de Hacienda
+     */
+    public function findByName($query, $origin = 'Juridico')
+    {
+        try {
+
+            $return = [];
+            $options = [
+                'uri'                => 'http://schemas.xmlsoap.org/soap/envelope/',
+                'style'              => SOAP_RPC,
+                'use'                => SOAP_ENCODED,
+                'soap_version'       => SOAP_1_1,
+                'cache_wsdl'         => WSDL_CACHE_NONE,
+                'connection_timeout' => 30,
+                'trace'              => true,
+                'encoding'           => 'UTF-8',
+                'exceptions'         => true,
+                'compression'        => SOAP_COMPRESSION_ACCEPT | SOAP_COMPRESSION_GZIP | SOAP_COMPRESSION_DEFLATE
+            ];
+
+            if ($origin == 'Juridico') {
+                $params = [
+                    'origen' => $origin, // Fisico,  Juridico o DIMEX
+                    'razon'  => $query['RAZON']
+                ];
+            } else {
+                $params = [
+                    'origen' => $origin, // Fisico,  Juridico o DIMEX
+                    'ape1'   => isset($query['APELLIDO1']) ? $query['APELLIDO1'] : '',
+                    'ape2'   => isset($query['APELLIDO2']) ? $query['APELLIDO2'] : '',
+                    'nomb1'  => isset($query['NOMBRE1']) ? $query['NOMBRE1'] : '',
+                    'nomb2'  => isset($query['NOMBRE2']) ? $query['NOMBRE2'] : ''
+                ];
+            }
+
+            $wsdl = $this->sicHostWS;
+        
+            $soap = new \SoapClient($wsdl, $options);
+            $response = $soap->ObtenerDatos($params);
+            $soap_response = $response->ObtenerDatosResult->any;
+
+            $xml = str_replace(["diffgr:", "msdata:"], '', $soap_response);
+            $xml = "<package>" . $xml . "</package>";
+            $data = simplexml_load_string($xml);
+            $results = $data->diffgram->DocumentElement->Table;
+
+            foreach ($results as $result) {
+                if ($origin == 'Juridico') {
+                    $return[] = [
+                        'cedula' => $result->CEDULA[0],
+                        'razon' => $result->NOMBRE[0],
+                        'adm' =>  $result->ADM[0],
+                        'ori' => $result->ORI[0]
+                    ];
+                } else {
+                    $return[] = [
+                        'cedula' => $result->CEDULA[0],
+                        'nombre1' => $result->NOMBRE1[0],
+                        'nombre2' => $result->NOMBRE2[0],
+                        'apellido1' => $result->APELLIDO1[0],
+                        'apellido2' => $result->APELLIDO2[0],
+                        'adm' =>  $result->ADM[0],
+                        'ori' => $result->ORI[0]
+                    ];
+                }
+                
+            }
+
             return $return;
 
         } catch (\SoapFault $fault) {
