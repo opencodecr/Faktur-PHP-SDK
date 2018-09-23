@@ -149,6 +149,8 @@ class Common extends Helpers {
         try {  
 
             $return = [];
+
+            // Opciones que se utilizan para consumir el web service
             $options = [
                 'uri'                => 'http://schemas.xmlsoap.org/soap/envelope/',
                 'style'              => SOAP_RPC,
@@ -162,25 +164,33 @@ class Common extends Helpers {
                 'compression'        => SOAP_COMPRESSION_ACCEPT | SOAP_COMPRESSION_GZIP | SOAP_COMPRESSION_DEFLATE
             ];
         
-            // El webservice en Hacienda hace la consulta utilizando los valores
-            // de parámetro que no estén vacíos, así que se puede hacer una consulta
-            // haciendo combinaciones.
+
+            /**
+             * El webservice en Hacienda hace la consulta utilizando los valores 
+             * de parámetro que no estén vacíos, así que se puede hacer una consulta
+             *  haciendo combinaciones.
+             */
             $params = [
                 'origen'      => $origin, // Fisico,  Juridico o DIMEX
                 'cedula'      => $documentId
             ];
-        
+            
+            // URL para hacer request
             $wsdl = $this->sicHostWS;
         
+            // Consumimos el wen service
             $soap = new \SoapClient($wsdl, $options);
             $response = $soap->ObtenerDatos($params);
             $soapResponse = $response->ObtenerDatosResult->any;
 
+            // Transformamos el response enviado por el web service en hacienda
             $xml = str_replace(["diffgr:", "msdata:"], '', $soapResponse);
             $xml = "<package>" . $xml . "</package>";
             $data = simplexml_load_string($xml);
 
+            
             if ($origin == 'Fisico') {
+                // Response a la consulta de contribuyente fisico
                 $return = [
                     'cedula' => isset($data->diffgram->DocumentElement->Table->CEDULA[0]) ? $data->diffgram->DocumentElement->Table->CEDULA[0] : '',
                     'apellido1' => isset($data->diffgram->DocumentElement->Table->APELLIDO1[0]) ? $data->diffgram->DocumentElement->Table->APELLIDO1[0] : '',
@@ -191,6 +201,7 @@ class Common extends Helpers {
                     'ori'=> isset($data->diffgram->DocumentElement->Table->ORI[0]) ? $data->diffgram->DocumentElement->Table->ORI[0] : ''
                 ];
             } elseif ($origin == 'Juridico') {
+                // Response a la consulta de contribuyente juridico
                 $return = [
                     'cedula' => isset($data->diffgram->DocumentElement->Table->CEDULA[0]) ? $data->diffgram->DocumentElement->Table->CEDULA[0] : '',
                     'nombre' => isset($data->diffgram->DocumentElement->Table->NOMBRE[0]) ? $data->diffgram->DocumentElement->Table->NOMBRE[0] : '',
@@ -246,6 +257,8 @@ class Common extends Helpers {
         try {
 
             $return = [];
+
+            // Opciones que se utilizan para consumir el web service
             $options = [
                 'uri'                => 'http://schemas.xmlsoap.org/soap/envelope/',
                 'style'              => SOAP_RPC,
@@ -259,6 +272,11 @@ class Common extends Helpers {
                 'compression'        => SOAP_COMPRESSION_ACCEPT | SOAP_COMPRESSION_GZIP | SOAP_COMPRESSION_DEFLATE
             ];
 
+            /**
+             * El webservice en Hacienda hace la consulta utilizando los valores 
+             * de parámetro que no estén vacíos, así que se puede hacer una consulta
+             *  haciendo combinaciones.
+             */
             if ($origin == 'Juridico') {
                 $params = [
                     'origen' => $origin, // Fisico,  Juridico o DIMEX
@@ -287,13 +305,15 @@ class Common extends Helpers {
 
             foreach ($results as $result) {
                 if ($origin == 'Juridico') {
+                    // Response a la consulta de contribuyente juridico
                     $return[] = [
                         'cedula' => $result->CEDULA[0],
                         'razon' => $result->NOMBRE[0],
                         'adm' =>  $result->ADM[0],
                         'ori' => $result->ORI[0]
                     ];
-                } elseif ($origin == 'Fisico') {
+                } elseif ($origin == 'Fisico') { 
+                    // Response a la consulta de contribuyente fisico
                     $return[] = [
                         'cedula' => $result->CEDULA[0],
                         'nombre1' => $result->NOMBRE1[0],
@@ -304,7 +324,6 @@ class Common extends Helpers {
                         'ori' => $result->ORI[0]
                     ];
                 }
-                
             }
 
             return $return;
