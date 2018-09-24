@@ -18,7 +18,7 @@
                 ]
             ];
 
-            \Faktur\Xml::uploadXmlFile('file', realpath('tests/files/receive'));
+            \Faktur\Xml::uploadXmlFile('file', $_FILES, realpath('tests/files/receive'));
         }
 
         protected function tearDown()

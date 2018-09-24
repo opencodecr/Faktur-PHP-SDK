@@ -45,24 +45,24 @@ class Xml  {
      * @param string $xmlPathNameDestination Destino en donde se almacenará el XML
      * @return boolean
      */
-    public static function uploadXmlFile($xmlFile, $destination)
+    public static function uploadXmlFile($xmlFile, $postFile, $destination)
     {
 
         try {
             // Emitimos un error si no se envío ningún archivo
-            if (empty($_FILES[$xmlFile])) 
+            if (empty($postFile[$xmlFile])) 
                 throw new \Exception("No se envíó ningún archivo", 500);
             
             // Verificamos que lo que se esté enviado sea un XML
-            if ($_FILES[$xmlFile]['type'] != 'application/xml') 
+            if ($postFile[$xmlFile]['type'] != 'application/xml') 
                 throw new \Exception("El archivo no es XML", 500);
             
             // Verificamos si el archivo fue cargado
-            if (!file_exists($_FILES[$xmlFile]['tmp_name'])) 
+            if (!file_exists($postFile[$xmlFile]['tmp_name'])) 
                 throw new \Exception("El archivo no fue cargado", 500);
 
             // Chequeamos que no exista un archivo con el mismo nombre en la misma ruta
-            $fileName = $destination . '/' . $_FILES[$xmlFile]['name'];
+            $fileName = $destination . '/' . $postFile[$xmlFile]['name'];
 
             // Verificamos si ya existe un archivo que se llame igual en el destino
             if (file_exists($fileName)) {
@@ -73,16 +73,16 @@ class Xml  {
                 $timestamp = $date->getTimestamp();
 
                 // Le añadimos un diferenciador al nombre del archivo
-                $fileName = $destination . '/' . $_FILES[$xmlFile]['name'] . '_copy_' . $timestamp;
+                $fileName = $destination . '/' . $postFile[$xmlFile]['name'] . '_copy_' . $timestamp;
             }
 
 
-            if (move_uploaded_file($_FILES[$xmlFile]['tmp_name'], $fileName)) {
+            if (move_uploaded_file($postFile[$xmlFile]['tmp_name'], $fileName)) {
                 self::$return = [
                     'code' => 200,
                     'message' => "El archivo XML cargó con éxito"
                 ];
-            } elseif (copy($_FILES[$xmlFile]['tmp_name'], $fileName)) {
+            } elseif (copy($postFile[$xmlFile]['tmp_name'], $fileName)) {
                 // Tratamos de copiarlo
                 self::$return = [
                     'code' => 200,
@@ -98,9 +98,9 @@ class Xml  {
         }
     }
 
-    public static function receiveXml($name) 
+    public static function receiveXml($name, $postFile) 
     {
-        if (empty($_FILES[$name]) || !\file_exists($_FILES[$name]['tmp_name'])) 
+        if (empty($postFile[$name]) || !\file_exists($postFile[$name]['tmp_name'])) 
             return false;
         
         return true;
