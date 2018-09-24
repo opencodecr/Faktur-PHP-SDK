@@ -29,7 +29,7 @@
         
         public function testuploadXmlFile()
         {
-            $success = \Faktur\Xml::receiveXml('file');
+            $success = \Faktur\Xml::receiveXml('file', $_FILES);
             $this->assertTrue($success);
         }
     
