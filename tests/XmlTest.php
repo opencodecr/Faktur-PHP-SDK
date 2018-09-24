@@ -17,19 +17,20 @@
                     'size' => 2760,
                 ]
             ];
+            $postFiles = $_FILES;
 
-            \Faktur\Xml::uploadXmlFile('file', $_FILES, realpath('tests/files/receive'));
+            \Faktur\Xml::uploadXmlFile('file', $postFiles, realpath('tests/files/receive'));
         }
 
         protected function tearDown()
         {
-            unset($_FILES);
             @unlink(realpath('tests/files/receive/factura001.xml'));
         }
         
         public function testuploadXmlFile()
         {
-            $success = \Faktur\Xml::receiveXml('file', $_FILES);
+            $postFiles = $_FILES;
+            $success = \Faktur\Xml::receiveXml('file', $postFiles);
             $this->assertTrue($success);
         }
     
