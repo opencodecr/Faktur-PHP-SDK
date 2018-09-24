@@ -45,7 +45,7 @@ class Xml  {
      * @param string $xmlPathNameDestination Destino en donde se almacenará el XML
      * @return boolean
      */
-    public static function uploadXmlFile($xmlFile, $xmlPathNameDestination)
+    public static function uploadXmlFile($xmlFile, $destination)
     {
 
         try {
@@ -62,7 +62,7 @@ class Xml  {
                 throw new \Exception("El archivo no fue cargado", 500);
 
             // Chequeamos que no exista un archivo con el mismo nombre en la misma ruta
-            $fileName = $xmlPathNameDestination . '/' . $_FILES[$xmlFile]['name'];
+            $fileName = $destination . '/' . $_FILES[$xmlFile]['name'];
 
             // Verificamos si ya existe un archivo que se llame igual en el destino
             if (file_exists($fileName)) {
@@ -73,7 +73,7 @@ class Xml  {
                 $timestamp = $date->getTimestamp();
 
                 // Le añadimos un diferenciador al nombre del archivo
-                $fileName = $xmlPathNameDestination . '/' . $_FILES[$xmlFile]['name'] . '_copy_' . $timestamp;
+                $fileName = $destination . '/' . $_FILES[$xmlFile]['name'] . '_copy_' . $timestamp;
             }
 
 

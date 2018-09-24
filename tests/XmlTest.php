@@ -6,8 +6,6 @@
     final class XmlTest extends TestCase 
     {
 
-        protected $_object;
-
         protected function setUp()
         {
             $_FILES = [
