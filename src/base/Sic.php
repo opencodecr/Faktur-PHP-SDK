@@ -14,10 +14,6 @@ use Faktur\Interfaces\SicInterface;
 class Sic implements SicInterface {
 
     /**
-     * @var Indica en que ambiente se está ejecutando las acciones
-     */
-    private $environment;
-    /**
      * @var URL en donde se realizan las consultas de los datos de los
      * contrinuyentes
      */
