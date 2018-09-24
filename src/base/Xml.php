@@ -88,12 +88,7 @@ class Xml  {
                     'code' => 200,
                     'message' => "El archivo XML cargó con éxito"
                 ];
-            } else {
-                self::$return = [
-                    'code' => 418,
-                    'message' => "No se pudo cargar el archivo"
-                ];
-            }
+            } 
                         
         } catch (\Exception $e) {
             return [
