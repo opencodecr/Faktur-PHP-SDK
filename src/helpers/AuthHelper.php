@@ -1,6 +1,6 @@
 <?php
 
-namespace opencode506\Faktur\Helpers;
+namespace Faktur\Helpers;
 
 class AuthHelper {
 
