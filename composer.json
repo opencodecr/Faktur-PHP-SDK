@@ -25,9 +25,9 @@
     },
     "autoload": {
         "psr-4": {
-            "opencode506\\Faktur\\": ["src/",  "src/base"],
-            "opencode506\\Faktur\\Interfaces\\": "src/interface",
-            "opencode506\\Faktur\\Helpers\\": "src/helpers"
+            "Faktur\\": ["src/",  "src/base"],
+            "Faktur\\Interfaces\\": "src/interface",
+            "Faktur\\Helpers\\": "src/helpers"
         }
     }
 }

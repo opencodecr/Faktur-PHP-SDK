@@ -1,6 +1,6 @@
 <?php
 
-    use opencode506\Faktur\Auth;
+    use Faktur\Auth;
     use PHPUnit\Framework\TestCase;
 
     final class TokenTest extends TestCase 

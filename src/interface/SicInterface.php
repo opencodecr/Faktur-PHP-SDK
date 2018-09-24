@@ -1,6 +1,6 @@
 <?php
 
-namespace opencode506\Faktur\Interfaces;
+namespace Faktur\Interfaces;
 
 interface SicInterface
 {

@@ -1,8 +1,8 @@
 <?php
 
-namespace opencode506\Faktur;
+namespace Faktur;
 
-use opencode506\Faktur\Interfaces\SicInterface;
+use Faktur\Interfaces\SicInterface;
 
 /**
  * Auth representa los eventos comunes que se necesitan para

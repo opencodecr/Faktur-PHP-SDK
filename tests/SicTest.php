@@ -1,6 +1,6 @@
 <?php
 
-    use opencode506\Faktur\Sic;
+    use Faktur\Sic;
     use PHPUnit\Framework\TestCase;
 
     final class SicTest extends TestCase 
